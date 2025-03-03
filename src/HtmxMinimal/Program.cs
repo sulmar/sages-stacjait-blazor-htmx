@@ -1,6 +1,9 @@
+using HtmxMinimal.Components;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddRazorComponents();
 var app = builder.Build();
 
 // Udostępnie plików statycznych z katalogu wwwroot
@@ -22,7 +25,7 @@ app.MapPost("/hello", ([FromForm] HelloForm model) =>
 {
     string message = $"Hello, {model.Name} #{model.UserId}!";
     
-    return $"<p>{message}</p>";
+    return new RazorComponentResult<HelloComponent>( new { Message = message } );
 }).DisableAntiforgery();
 
 // Ustawienie index.html jako strony głównej
