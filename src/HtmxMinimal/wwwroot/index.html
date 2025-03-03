@@ -15,14 +15,34 @@
     <button hx-get="/time" >Pobierz czas</button>
 
     <h2>hx-target</h2>
-    <button>Pobierz czas</button>
+    <button hx-get="/time" hx-target="#result">Pobierz czas</button>
     <div id="result"></div>
 
-    <h2>hx-trigger</h2>
-    <div id="live-time"></div>
+    <h2>hx-trigger </h2>
+    <div id="live-time" hx-get="/time" hx-trigger="every 1s"></div>
+    
+    <h2>hx-trigger - mouseover</h2>
+    <div hx-get="/time" hx-target="#resultMouseOver" hx-trigger="mouseover">
+        Najedź na mnie
+    </div>
+    <div id="resultMouseOver"></div>
+    
+    <h2>hx-trigger - lazy</h2>
+    
+    <label for="email">Email: </label>
+    <input id="email" name="email" value="marcin.sulecki@sulmar.pl"  >
+    
+    <label for="firstname">FirstName: </label>
+    <input id="firstname" name="firstname" value="Marcin" >
+    
+    <input id="userid" type="hidden" name="userid" value="123" >
+    
+    <div hx-get="/lazy" hx-include="#email,#firstname,#userid" hx-trigger="revealed">
+        <p>Ładowanie treści...</p>
+    </div>
 
     <h2>hx-post</h2>
-    <form method="post">
+    <form hx-post="/hello" hx-target="#hello-response" hx-include="#userid">
         <label>Podaj imię:</label>
         <input type="text" name="name" required>
         <button type="submit">Wyślij</button>
@@ -30,7 +50,7 @@
     <div id="hello-response"></div>
 
     <h2>hx-swap</h2>
-    <button>
+    <button hx-get="/time" hx-target="#toggle-container" hx-swap="outerHTML">
         Kliknij, aby zamienić treść
     </button>
     <div id="toggle-container">
